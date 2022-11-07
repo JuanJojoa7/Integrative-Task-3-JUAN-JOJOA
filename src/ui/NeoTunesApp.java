@@ -155,7 +155,7 @@ public class NeoTunesApp{
                 System.out.print("\nIngresa el nombre de la nueva cancion: ");
                 name = reader.next();
                 System.out.print("\nIngresa el nombre del artista de esta cancion: ");
-                nickname = reader.next(); 
+                String nicknameArtist = reader.next(); 
                 System.out.print("\nIngresa la URL con la caratula de la cancion: ");
                 String urlImage = reader.next();
                 System.out.print("\nIngresa el nombre del album donde ira la cancion: ");
@@ -172,7 +172,7 @@ public class NeoTunesApp{
                 "\nOpcion: ");
                 int genre = reader.nextInt();
 
-                System.out.println(controller.addSongToArrayList(nickname, name, album, urlImage, timeRep, price, genre));
+                System.out.println(controller.addSongToArrayList(nicknameArtist, name, album, urlImage, timeRep, price, genre));
                 
                 break;
 
@@ -181,7 +181,7 @@ public class NeoTunesApp{
                 System.out.print("\nIngresa el nombre del nuevo podcast: ");
                 name = reader.next();
                 System.out.print("\nIngresa el nombre del creador de contenido de este podcast: ");
-                String contentProducer = reader.next(); 
+                String nicknameContentP = reader.next(); 
                 System.out.print("\nIngresa la URL con la caratula de este podcast: ");
                 urlImage = reader.next();
                 System.out.print("\nIngresa la descripcion que tendra el podcast: ");
@@ -196,7 +196,7 @@ public class NeoTunesApp{
                 "\nOpcion: ");
                 int category = reader.nextInt();
 
-                System.out.println(controller.addPodcastToArrayList(contentProducer, name, description, urlImage, category, timeRep));
+                System.out.println(controller.addPodcastToArrayList(nicknameContentP, name, description, urlImage, category, timeRep));
 
                 break;
 

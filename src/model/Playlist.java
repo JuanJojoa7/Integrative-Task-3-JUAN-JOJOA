@@ -6,16 +6,24 @@ public class Playlist{
     private String name;
     private ArrayList<Audio> audios;
 
+    /** Playlist: It is the builder in charge of hosting the playlist types, for standard and premium and that saves the audios in playlists.
+    * @param name: String => This is the name that the playlist will receive when it is created.
+    */
     public Playlist(String name){
         this.name = name;
         this.audios = new ArrayList<Audio>();
     }
 
-    public Audio searchSongInArrayList(String name, Artist producer) {
+    /** searchSongInArrayList: It is in charge of looking for a song in the arrayList of songs to validate its existence and add it to the playlist.
+    * @param name: String => It is the name of the song that will be searched and validated.
+    * @param owner: UArtist => It is the artist object which must already be created to validate that the song is yours.
+    * @return audioFounded: Audio => The song found in the arrayList is returned.
+    */
+    public Audio searchSongInArrayList(String name, UArtist owner) {
         boolean isFound = false;
         Audio audioFounded = null;
         for (int i = 0; i < audios.size() && !isFound; i++) {
-            if (audios.get(i).getName().equalsIgnoreCase(name) && producer.searchSongInArrayList(name) != null) {
+            if (audios.get(i).getName().equalsIgnoreCase(name) && owner.searchSongInArrayList(name) != null) {
                 audioFounded = audios.get(i);
                 isFound = true;
             }
@@ -23,11 +31,16 @@ public class Playlist{
         return audioFounded;
     }
 
-    public Audio searchPodcastInArrayList(String name, ContentProducer producer) {
+    /** searchPodcastInArraylist: It is in charge of searching and finding a podcast in the arraylist together with its creator and validates it.
+    * @param name: String => It is the name of the podcast to search and validate.
+    * @param contentProducer: UContentProducer => It is the content creator object with which the existence of the podcast is validated.
+    * @return audioFounded: Audio => Returns the validation if the requested audio was found, in this case the podcast.
+    */
+    public Audio searchPodcastInArrayList(String name, UContentProducer contentProducer) {
         boolean isFound = false;
         Audio audioFounded = null;
         for (int i = 0; i < audios.size() && !isFound; i++) {
-            if (audios.get(i).getName().equalsIgnoreCase(name) && producer.searchPodcastV2(name) != null) {
+            if (audios.get(i).getName().equalsIgnoreCase(name) && contentProducer.searchPodcastV2(name) != null) {
                 audioFounded = audios.get(i);
                 isFound = true;
             }
@@ -35,6 +48,9 @@ public class Playlist{
         return audioFounded;
     }
 
+    /** addAudio: It is in charge of adding the audio to each user's playlist arraylist.
+    * @param audio: Audio => This is the audio to be recorded in the playlist.
+    */
     public void addAudio(Audio audio) {
         audios.add(audio);
     }

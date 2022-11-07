@@ -8,6 +8,15 @@ public class Song extends Audio{
     private Genre genre;
     private String nickname;
 
+    /** Song: It is the constructor in charge of storing the information of the songs to be able to add them, and it is audio inheritance.
+    * @param nickname: String => It is the nickname with which the owner of the song will be identified.
+    * @param name: String => It is the name that the song will have.
+    * @param album: String => It is the name of the album that will store the song.
+    * @param urlImage: String => It is the image that will have the cover that will identify the song.
+    * @param timeRep: int => It is the time in seconds that the playback of the song will have.
+    * @param price: double => It is the sale price that the song will have to the public.
+    * @param genre: int => It is the genre that the song to register will have.
+    */
     public Song(String nickname, String name, String album, String urlImage, int timeRep, double price, int genre){
         super(name, urlImage, timeRep);
 
@@ -30,7 +39,7 @@ public class Song extends Audio{
                 break;      
         }
     }
-    
+
     public String getSongName(){
         String name = super.getName();
         return name;

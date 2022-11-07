@@ -6,7 +6,7 @@ public abstract class User{
     private String nickname;
     private String id;
     private LocalDate date;
-
+    
     public User(String nickname, String id, LocalDate date){
         this.nickname = nickname;
         this.id = id;
