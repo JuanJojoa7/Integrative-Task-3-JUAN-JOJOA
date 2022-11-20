@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class Consumer extends User{
 
-    //In this section you will define at once all the arraylist that I believe pertinent for the development of the other requirements.
-
     private int podcastTimeRep;
     private Category podcastMostListenedCategory;
     private String podcastMostListenedCreator;
@@ -27,8 +25,7 @@ public class Consumer extends User{
     }
 
     public void updateStats(){
-        //Working in this method.
-        //The function of this method is too update the stats of a Consumer, playlist, songs and podcast.
+        
     }
 
     public String createPlaylistV1(String name, ArrayList audios){

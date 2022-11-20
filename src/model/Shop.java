@@ -8,8 +8,7 @@ public class Shop{
     private Song song;
 
     public Shop(String song){
-        //This a non functional Constructor, it has the function of shopping the songs by the user.
-        //Still working here...
+        
     }
     
 }
