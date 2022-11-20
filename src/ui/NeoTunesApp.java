@@ -245,14 +245,6 @@ public class NeoTunesApp{
 
                 break;
 
-            case 11: 
-
-                break;
-
-            case 12:
-
-                break;
-
             case 0: 
                 System.out.println("\nHasta luego querido usuario.\n");    
                 break;

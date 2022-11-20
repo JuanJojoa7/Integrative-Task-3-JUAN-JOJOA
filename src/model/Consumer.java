@@ -29,13 +29,12 @@ public class Consumer extends User{
     }
 
     public String createPlaylistV1(String name, ArrayList audios){
-        //This is a non functional method, the first version of create Playlist, in the next solution of the integrative task 3 i want to make it
-        //functional from this class "Consumer."
+        
         return null;
     }
 
     public String buySong(String song){
-        //Method on process.
+        
         return song;
     }
  }
