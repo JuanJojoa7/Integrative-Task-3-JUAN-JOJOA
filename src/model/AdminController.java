@@ -132,7 +132,7 @@ public class AdminController{
     */
     public String addSongToArrayList(String nicknameArtist, String name, String album, String urlImage, int timeRep, double price, int genre){
         LocalDate date = LocalDate.now();
-        String msgConfirmation = null;
+        String msgConfirmation = "\nCancion agregada correctamente";
         boolean isFound = false;
 
         if(searchUser(nicknameArtist) == null && searchUser(nicknameArtist) instanceof UContentProducer){
@@ -178,7 +178,7 @@ public class AdminController{
     */
     public String addPodcastToArrayList(String nicknameContentP, String name, String description, String urlImage, int category, int timeRep){
         LocalDate date = LocalDate.now();
-        String msgConfirmation = null;
+        String msgConfirmation = "\nPodcast agregado correctamente";
         boolean isFound = false;
 
         if(searchUser(nicknameContentP) == null && searchUser(nicknameContentP) instanceof UArtist){
@@ -217,7 +217,7 @@ public class AdminController{
     public String addPlaylist(String name, String user){
 
         String msgError = null;
-        String msgConfirmation = "Listo, playlist agregada correctamente.";
+        String msgConfirmation = "\nListo, playlist agregada correctamente.";
         boolean isFound = false;
 
         for(int i = 0; i < users.size() && !isFound; i++){
@@ -256,7 +256,7 @@ public class AdminController{
         return msgConfirmation;
     }
 
-    public String sharePlaylist(String name, String playlist){
+    public String sharePlaylist(String name, String namePlaylist){
         String msgConfirmation = null;
 
         if(searchUser(name) != null){
@@ -266,9 +266,9 @@ public class AdminController{
 
                 if(consumer instanceof UStandard){
                     UStandard userFound = (UStandard) consumer;
-                    if(userFound.searchPlaylist(playlist) != null){
+                    if(userFound.searchPlaylist(namePlaylist) != null){
 
-                        msgConfirmation = userFound.searchPlaylist(playlist).sharePlaylist();
+                        msgConfirmation = userFound.searchPlaylist(namePlaylist).sharePlaylist();
 
                     }else{
 
@@ -279,9 +279,9 @@ public class AdminController{
 
                     UPremium userFound = (UPremium) consumer;
 
-                    if(userFound.searchPlaylist(playlist) != null) {
+                    if(userFound.searchPlaylist(namePlaylist) != null) {
 
-                        msgConfirmation = userFound.searchPlaylist(playlist).sharePlaylist();
+                        msgConfirmation = userFound.searchPlaylist(namePlaylist).sharePlaylist();
 
                     }else{
 
@@ -411,7 +411,7 @@ public class AdminController{
 
                 UArtist artistFound = (UArtist) searchUser(artist);
 
-                if(artistFound.searchSong(song) != null){
+                if(artistFound.searchSong(song)!= null){
 
                     Song music = artistFound.searchSong(song);
 
