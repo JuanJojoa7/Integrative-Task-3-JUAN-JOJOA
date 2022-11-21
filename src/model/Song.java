@@ -1,6 +1,6 @@
 package model;
 
-public class Song extends Audio{
+public class Song extends Audio implements IPlayable, ISalable{
 
     private String album;
     private double price;
@@ -38,6 +38,11 @@ public class Song extends Audio{
                 this.genre = Genre.HOUSE;
                 break;      
         }
+    }
+
+    public void playAudio() {
+        int views = 0;
+        views++;
     }
 
     public String getSongName(){

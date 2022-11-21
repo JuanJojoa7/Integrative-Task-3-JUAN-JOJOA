@@ -37,6 +37,11 @@ public class Podcast extends Audio{
 
     }
 
+    public void playAudio() {
+        int views=0;
+        views++;
+    }
+
     public String getDescription(){
         return description;
     }

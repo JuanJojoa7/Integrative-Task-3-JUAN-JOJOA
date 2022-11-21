@@ -41,6 +41,41 @@ public class UArtist extends Producer{
         return songFounded;
     }
 
+    public Song searchSongOwner(String name) {
+        Song isFoundSong = null;
+        boolean isFound = false;
+        
+        for(int i = 0; i < songs.size() && !isFound; i++){
+
+            if(songs.get(i).getName().equalsIgnoreCase(name)){
+
+                isFoundSong = songs.get(i);
+                isFound = true;
+
+            }
+        }
+
+        return isFoundSong;
+    }
+
+    public Song searchSong(String name){
+        Song songFounded = null;
+        boolean isFound = false;
+
+        for(int i = 0; i < songs.size() && !isFound; i++){
+
+            if(songs.get(i).getName().equalsIgnoreCase(name)){
+
+                songFounded = songs.get(i);
+                isFound= true;
+
+            }
+        }
+
+        return songFounded;
+    }
+
+
     /** addSongInArrayList: It is responsible for adding songs to the arrangement of the owner in this case the artist.
     * @param audioToAdd: Audio => It is the audio found and added to the song arraylist.
     */

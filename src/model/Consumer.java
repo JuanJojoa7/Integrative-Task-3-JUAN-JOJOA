@@ -29,6 +29,10 @@ public class Consumer extends User{
         return playlist;
     }
 
+    public String buySong(Song song) {
+        return "\nTodo listo, has comprado la cancion satisfactoriamente.";
+    }
+
     public String addPlaylist(String name){
 
         boolean isFound = false;

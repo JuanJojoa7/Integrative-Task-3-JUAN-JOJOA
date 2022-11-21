@@ -265,21 +265,23 @@ public class AdminController{
                 Consumer consumer = (Consumer) searchUser(name);
 
                 if(consumer instanceof UStandard){
-                    UStandard user = (UStandard) consumer;
-                    if(user.searchPlaylist(playlist) != null){
+                    UStandard userFound = (UStandard) consumer;
+                    if(userFound.searchPlaylist(playlist) != null){
 
-                        msgConfirmation = user.searchPlaylist(playlist).sharePlaylist();
+                        msgConfirmation = userFound.searchPlaylist(playlist).sharePlaylist();
 
                     }else{
 
                         msgConfirmation = "\nLo sentimos, no se ha encontrado la playlist.";
                     }
+
                 }else{
-                    UPremium user = (UPremium) consumer;
 
-                    if(user.searchPlaylist(playlist) != null) {
+                    UPremium userFound = (UPremium) consumer;
 
-                        msgConfirmation = user.searchPlaylist(playlist).sharePlaylist();
+                    if(userFound.searchPlaylist(playlist) != null) {
+
+                        msgConfirmation = userFound.searchPlaylist(playlist).sharePlaylist();
 
                     }else{
 
@@ -292,6 +294,159 @@ public class AdminController{
         }else{
             msgConfirmation = "\nLo sentimos, este usuario no se encuentra en el sistema.";
         }
+        return msgConfirmation;
+    }
+
+    public String simulateTracks(String nickname, String audio, int type, String producer){
+
+        String msgConfirmation = null;
+
+        if(searchUser(nickname) != null && searchUser(nickname) instanceof Consumer){
+            Consumer consumer = (Consumer) searchUser(nickname);
+
+            if(type == 1){
+
+                if(searchUser(producer) != null && searchUser(producer) instanceof UArtist){
+
+                    UArtist typeArtist = (UArtist) searchUser(producer);
+
+                    if(typeArtist.searchSongOwner(audio) != null){
+
+                        Song audioFounded = (Song) typeArtist.searchSongOwner(audio);
+                        audioFounded.playAudio();
+                        int counter = 0;
+
+                        for(int i = 0; i < users.size() && counter != 2; i++){
+
+                            if(users.get(i).getNickname().equalsIgnoreCase(nickname) && users.get(i) instanceof Consumer){
+
+                                users.remove(i);
+                                users.add(consumer);
+                                counter++;
+                            }
+
+                            if(users.get(i).getNickname().equalsIgnoreCase(producer) && users.get(i) instanceof UArtist){
+
+                                users.remove(i);
+                                users.add(typeArtist);
+                                counter++;
+
+                            }
+                        }
+
+                    }else{
+
+                        msgConfirmation = "\nLo sentimos, el audio que intentas buscar no se encuentra en el sistema.";
+
+                    }
+
+                }else{
+
+                    msgConfirmation = "\nLo sentimos ese productor no esta en el sistema.";
+
+                }
+
+            }else if(type == 2){
+
+                if(searchUser(producer) != null && searchUser(producer) instanceof UContentProducer){
+
+                    UContentProducer typeProducer = (UContentProducer) searchUser(producer);
+
+                    if(typeProducer.searchPodcastOwner(audio) != null){
+
+                        Podcast audioFounded = (Podcast) typeProducer.searchPodcastOwner(audio);
+                        audioFounded.playAudio();
+                        int counter = 0;
+
+                        for(int i = 0; i < users.size() && counter != 2; i++){
+
+                            if(users.get(i).getNickname().equalsIgnoreCase(nickname) && users.get(i) instanceof Consumer){
+
+                                users.remove(i);
+                                users.add(consumer);
+                                counter++;
+
+                            }
+
+                            if(users.get(i).getNickname().equalsIgnoreCase(producer) && users.get(i) instanceof UContentProducer){
+
+                                users.remove(i);
+                                users.add(typeProducer);
+                                counter++;
+
+                            }
+                        }
+
+                    }else{
+
+                        msgConfirmation = "\nLo sentimos ese audio no esta en el sistema.";
+                    }
+
+                }else{
+
+                    msgConfirmation = "\nLo sentimos, ese productor no esta en el sistema.";
+                }
+
+            }else{
+
+                msgConfirmation = "\nLo sentimos, parece que has seleccionado un tipo incorrecto, intenta nuevamente.";
+            }
+
+        }else{
+
+            msgConfirmation = "\nLo sentimos, ese usuario no ha sido encontrado.";
+        }
+
+        return msgConfirmation;
+    }
+
+    public String buySongToUser(String consumer, String song, String artist){
+        String msgConfirmation = null;
+
+        if(searchUser(consumer) != null && searchUser(consumer) instanceof Consumer){
+
+            Consumer consumerFound = (Consumer) searchUser(consumer);
+
+            if(searchUser(artist) != null && searchUser(artist) instanceof UArtist){
+
+                UArtist artistFound = (UArtist) searchUser(artist);
+
+                if(artistFound.searchSong(song) != null){
+
+                    Song music = artistFound.searchSong(song);
+
+                    msgConfirmation = consumerFound.buySong(music);
+
+                    if(msgConfirmation.equalsIgnoreCase("$$$")){
+
+                        boolean isFound = false;
+
+                        for(int i = 0; i < users.size() && !isFound; i++){
+
+                            if(users.get(i).getNickname().equalsIgnoreCase(artist) && users.get(i) instanceof UArtist){
+
+                                users.remove(i);
+                                users.add(artistFound);
+
+                            }
+                        }
+                    }
+                }else{
+
+                    msgConfirmation = "\nLo sentimos ese audio no se encuentra en el sistema.";
+                }
+
+            }else{
+
+                msgConfirmation = "\nLo sentimos, ese artista no ha sido registrado.";
+            }
+
+        }else{
+
+            msgConfirmation = "\nLo sentimos ese usuario no se encuentra en el sistema.";
+
+        }
+
         return msgConfirmation;
     }
 

@@ -40,6 +40,23 @@ public class UContentProducer extends Producer{
         }
         return podcastFounded;
     }
+
+    public Podcast searchPodcastOwner(String name){
+        Podcast podcastFound = null;
+        boolean isFound = false;
+
+        for(int i = 0; i < podcasts.size() && !isFound; i++){
+
+            if(podcasts.get(i).getName().equalsIgnoreCase(name)){
+
+                podcastFound = podcasts.get(i);
+                isFound = true;
+                
+            }
+        }
+        
+        return podcastFound;
+    }
     
     public void addPodcastV1(Podcast podcast){
         //This a non functional method, i wanted it to work in the next solution from this Class.
