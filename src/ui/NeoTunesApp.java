@@ -48,6 +48,10 @@ public class NeoTunesApp{
             "4. Registrar podcast.\n"+
             "5. Crear una lista de reproduccion.\n"+
             "6. Editar lista de reproduccion.\n"+
+            "7. Compartir playlist.\n"+
+            "8. Simular una reproducion.\n"+
+            "9. Comprar una cancion. \n"+
+            "10. Generar informes. \n"+
             "0. Salir del programa. \n"+
             "Opcion: ");  
     }
@@ -201,35 +205,31 @@ public class NeoTunesApp{
                 break;
 
             case 5:
-                System.out.println("\nHa iniciado, registrar lista de reproduccion.");
-                System.out.print("\nIngresa un nombre para esta playlist: ");
+                
+                boolean ifFounded = false;
+                System.out.println("\nHa iniciado, registrar playlist.");
+                System.out.print("\nIngresa el nombre para esta playlist: ");
                 name = reader.next();
-                System.out.print("\nIngresa el usuario al cual se le agregara la playlist: ");
+                System.out.print("\nIngresa el usuario para vincular la playlist: ");
                 nickname = reader.next();
-                System.out.print("\nQue tipo de membresia tiene este usuario:" +
-                        "\n1. Estandar." +
-                        "\n2. Premium." +
-                        "\nOpcion: ");
-                    int optionUser = reader.nextInt();
-                    switch(optionUser){
-                        case 1:
-                            System.out.println(controller.addPlaylistToStandardU(name, nickname));
-                            break;
-                        case 2:
-                            System.out.println(controller.addPlaylistToPremiumU(name, nickname));
-                            break;
-                        default:
-                            System.out.println("\nLo sentimos, ese no es un tipo de usuario valido para agregar playlist.");
-                            break;    
-                    }
+                System.out.println(controller.addPlaylist(name, nickname));
 
                 break;
 
             case 6:
                 
+
                 break;
 
             case 7: 
+
+                String msgConfirmation = null;
+                String isFoundedPlaylist = null;
+                System.out.print("\nIngresa el nombre del consumidor que compartira la playlist: ");
+                name = reader.next();
+                System.out.print("\nIngresa la playlist que compartira el consumidor: ");
+                String playlist = reader.next();
+                System.out.println(controller.sharePlaylist(name, playlist));
 
                 break;
 

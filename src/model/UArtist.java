@@ -25,12 +25,17 @@ public class UArtist extends Producer{
     * @return songFounded: Song => Returns the song found in the song array in order to add it to the artist's arraylist.
     */
     public Song searchSongInArrayList(String name){
+
         Song songFounded = null;
         boolean isFound = false;
+
         for(int i = 0; i < songs.size() && !isFound; i++){
+
             if(songs.get(i).getName().equalsIgnoreCase(name)){
+
                 songFounded = songs.get(i);
                 isFound = true;
+                
             }
         }
         return songFounded;

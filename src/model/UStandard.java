@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
-public class UStandard extends Consumer {
+public class UStandard extends Consumer{
 
     private Shop[] songs;
     private Playlist[] playlists;
@@ -28,13 +28,17 @@ public class UStandard extends Consumer {
     * @param name: String => It is the name with which the playlist to be registered is identified.
     * @return playlistFounded: Playlist => Returns the found playlist ready to add audio.
     */
-    public Playlist searchPlaylistInArrayList(String name) {
+    public Playlist searchPlaylistInArrayList(String name){
         Playlist playlistFounded = null;
         boolean isFound = false;
-        for (int i = 0; i < MAX_PLAYLISTS && !isFound; i++) {
-            if (playlists[i] != null && playlists[i].gettName().equalsIgnoreCase(name)) {
+
+        for(int i = 0; i < MAX_PLAYLISTS && !isFound; i++){
+
+            if(playlists[i] != null && playlists[i].getName().equalsIgnoreCase(name)){
+    
                 playlistFounded = playlists[i];
                 isFound = true;
+                
             }
         }
         return playlistFounded;
@@ -45,14 +49,20 @@ public class UStandard extends Consumer {
     * @return msgConfirmation: String => Returns the successful binding message and playlist registration.
     */
     public String addPlaylistToArrayList(String name){
+
         String msgConfirmation = "\nLo sentimos, has alcanzado el limite de playlist.";
         Playlist playlistCreated = new Playlist(name);
         boolean foundSpace = false;
+
         if(searchPlaylistInArrayList(name) == null){
+
             for(int i = 0; i < MAX_PLAYLISTS && !foundSpace; i++){
+
                 if(playlists[i] == null){
+
                     playlists[i] = playlistCreated;
                     foundSpace = true;
+
                     msgConfirmation = "\nPlaylist agregada correctamente.";
                 }
             }
@@ -62,4 +72,20 @@ public class UStandard extends Consumer {
         return msgConfirmation;
     }
     
+    public Playlist searchPlaylist(String name){
+
+        Playlist playlistFounded = super.searchPlaylist(name);
+        boolean isFound = false;
+
+        for(int i = 0; i < MAX_PLAYLISTS && !isFound; i++){
+
+            if(playlists[i] != null && playlists[i].getName().equalsIgnoreCase(name)){
+
+                playlistFounded = playlists[i];
+                isFound = true;
+
+            }
+        }
+        return playlistFounded;
+    }
 }

@@ -25,13 +25,17 @@ public class UPremium extends Consumer{
     * @param name: String => It is the name with which the playlist to be registered is identified.
     * @return playlistFounded: Playlist => Returns the found playlist ready to add audio.
     */
-    public Playlist searchPlaylistInArrayList(String name) {
+    public Playlist searchPlaylistInArrayList(String name){
         Playlist playlistFounded = null;
         boolean isFound = false;
-        for (int i = 0; i < playlists.size() && !isFound; i++) {
-            if (playlists.get(i).gettName().equalsIgnoreCase(name)) {
+
+        for(int i = 0; i < playlists.size() && !isFound; i++){
+
+            if(playlists.get(i).getName().equalsIgnoreCase(name)){
+
                 playlistFounded = playlists.get(i);
                 isFound = true;
+
             }
         }
         return playlistFounded;
@@ -42,15 +46,26 @@ public class UPremium extends Consumer{
     * @return msgConfirmation: String => Returns the successful binding message and playlist registration.
     */
     public String addPlaylistToArrayList(String name){
+
         String msgConfirmation = null;
         Playlist playlist = new Playlist(name);
+
         if(searchPlaylistInArrayList(name) == null){
+
             playlists.add(playlist);
+
             msgConfirmation = "Agregada satisfactoriamente.";
+
         }else{
+
             msgConfirmation = "\nProceed.";
+            
         }
         return msgConfirmation;
+    }
+
+    public ArrayList<Playlist> getPlaylist() {
+        return playlists;
     }
     
 }

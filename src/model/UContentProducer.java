@@ -24,13 +24,18 @@ public class UContentProducer extends Producer{
     * @param name: String => It is the identifier of the podcast to make validations.
     * @return podcastFounded: Podcast => It's the podcast found and ready to be added to the content creator's arraylist.
     */
-    public Podcast searchPodcastV2(String name) {
+    public Podcast searchPodcastV2(String name){
         Podcast podcastFounded = null;
         boolean isFound = false;
-        for (int i = 0; i < podcasts.size() && !isFound; i++) {
-            if (podcasts.get(i).getName().equalsIgnoreCase(name)) {
+
+        for(int i = 0; i < podcasts.size() && !isFound; i++){
+
+            if(podcasts.get(i).getName().equalsIgnoreCase(name)){
+
                 podcastFounded = podcasts.get(i);
+
                 isFound = true;
+                
             }
         }
         return podcastFounded;

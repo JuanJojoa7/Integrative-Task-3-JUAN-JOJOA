@@ -24,18 +24,24 @@ public class Consumer extends User{
         super(nickname, id, date);
     }
 
-    public void updateStats(){
-        
+    public Playlist searchPlaylist(String name){
+        Playlist playlist = null;
+        return playlist;
     }
 
-    public String createPlaylistV1(String name, ArrayList audios){
-        
-        return null;
+    public String addPlaylist(String name){
+
+        boolean isFound = false;
+        String msgConfirmation = "\nSe ha agregado la playlist satisfactoriamente.";
+
+        if(isFound == true){
+
+            msgConfirmation = "Lo sentimos, ha alcanzado el limite";
+            
+        }
+        return msgConfirmation;
     }
 
-    public String buySong(String song){
-        
-        return song;
-    }
+    
  }
  

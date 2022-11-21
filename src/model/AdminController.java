@@ -1,17 +1,17 @@
 package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 public class AdminController{
 
     private ArrayList<User> users;
     private ArrayList<Audio> audios;
-    
+
     /** AdminController: Constructor in charge of doing all the functions of the control of the system functions.
     */
     public AdminController(){
         this.users = new ArrayList<User>();
         this.audios = new ArrayList<Audio>();
+        
     }
 
     /** searchUser: It is in charge of searching and finding users in the system thanks to their nickname.
@@ -23,9 +23,12 @@ public class AdminController{
         User user = null;
 
         for(int i=0; i < users.size() && !isFound; i++){
+
             if(users.get(i).getNickname().equalsIgnoreCase(nickname)){
+
                 user = users.get(i);
                 isFound = true;
+                
             }
         }
         return user;
@@ -40,9 +43,12 @@ public class AdminController{
         User user = null;
 
         for(int i=0; i < users.size() && !isFound; i++){
+
             if(users.get(i).getId().equalsIgnoreCase(id)){
+
                 user = users.get(i);
                 isFound = true;
+
             }
         }
         return user;
@@ -57,7 +63,9 @@ public class AdminController{
     public String addUserStandard(int type, String nickname, String id){
         String msgConfirmation = null;
         LocalDate date = LocalDate.now();
+
         users.add(new UStandard(type, nickname, id, date));
+
         msgConfirmation = "\nSe ha agregado el usuario estandar correctamente.";
         return msgConfirmation;
     }
@@ -71,7 +79,9 @@ public class AdminController{
     public String addUserPremium(int type, String nickname, String id){
         String msgConfirmation = null;
         LocalDate date = LocalDate.now();
+
         users.add(new UPremium(type, nickname, id, date));
+
         msgConfirmation = "\nSe ha agregado el usuario premium correctamente.";
         return msgConfirmation;
     }
@@ -86,7 +96,9 @@ public class AdminController{
     public String addUserArtist(int type, String name, String nickname, String id, String urlImage){
         String msgConfirmation = null;
         LocalDate date = LocalDate.now();
+
         users.add(new UArtist(type, name, nickname, id, urlImage, date));
+
         msgConfirmation = "\nSe ha agregado el Artista correctamente.";
         return msgConfirmation;
     }
@@ -101,7 +113,9 @@ public class AdminController{
     public String addUserContentProducer(int type, String name, String nickname, String id, String urlImage){
         String msgConfirmation = null;
         LocalDate date = LocalDate.now();
+
         users.add(new UContentProducer(type, name, nickname, id, urlImage, date));
+
         msgConfirmation = "\nSe ha agregado el Creador de contenido correctamente.";
         return msgConfirmation;
     }
@@ -120,20 +134,31 @@ public class AdminController{
         LocalDate date = LocalDate.now();
         String msgConfirmation = null;
         boolean isFound = false;
+
         if(searchUser(nicknameArtist) == null && searchUser(nicknameArtist) instanceof UContentProducer){
+
             msgConfirmation = "\nLo sentimos, el artista no fue encontrado.";
+
         }else{
+
             Audio song = new Song(nicknameArtist, name, album, urlImage, timeRep, price, genre);
             for(int i = 0; i < users.size() && !isFound; i++) {
+
                 if(users.get(i).getNickname().equalsIgnoreCase(nicknameArtist)){
+
                     UArtist user = (UArtist) users.get(i);
+
                     if(user.searchSongInArrayList(name) == null){
+
                         user.addSongInArrayList(song);
                         users.remove(users.get(i));
                         users.add(user);
                         isFound = true;
+
                         msgConfirmation = "\nCancion agregada correctamente.";
+
                     }else{
+                        
                         msgConfirmation = "\nLo sentimos, este artista ya tiene esa cancion registrada.";
                     }
                 }
@@ -155,20 +180,32 @@ public class AdminController{
         LocalDate date = LocalDate.now();
         String msgConfirmation = null;
         boolean isFound = false;
+
         if(searchUser(nicknameContentP) == null && searchUser(nicknameContentP) instanceof UArtist){
+
             msgConfirmation = "\nLo sentimos, ese creador de contenido no se encuentra registrado.";
+
         }else{
+
             Audio podcast = new Podcast(nicknameContentP, name, description, urlImage, category, timeRep);
+
             for(int i = 0; i < users.size() && !isFound; i++){
+
                 if(users.get(i).getNickname().equalsIgnoreCase(nicknameContentP)){
+
                     UContentProducer user = (UContentProducer) users.get(i);
+
                     if(user.searchPodcastV2(name) == null){
+
                         user.addPodcastV2(podcast);
                         users.remove(users.get(i));
                         users.add(user);
                         isFound = true;
+
                         msgConfirmation = "\nPodcast agregado correctamente.";
+
                     }else{
+
                         msgConfirmation = "\nLo sentimos, este creador de contenido ya tiene ese podcast en su lista.";
                     }
                 }
@@ -177,67 +214,88 @@ public class AdminController{
         return msgConfirmation;
     }
 
-    /** addPlaylistToStandardU: It is in charge of adding playlists for standard users.
-    * @param playlistName: String => This is the name by which the playlist will be identified.
-    * @param nickname: String => It is the nickname identifier of the standard user to whom the playlist will be created.
-    * @return msgConfirmation: String => This is the message that is returned when creating the playlist for the user.
-    */
-    public String addPlaylistToStandardU(String playlistName, String nickname){
-        LocalDate date = LocalDate.now();
-        String msgConfirmation = "\nPlaylist creada correctamente.";
+    public String addPlaylist(String name, String user){
+
+        String msgError = null;
+        String msgConfirmation = "Listo, playlist agregada correctamente.";
         boolean isFound = false;
-        if(searchUser(nickname)!= null){
-            for(int i = 0; i < users.size() && !isFound; i++){
-                if(users.get(i).getNickname().equalsIgnoreCase(nickname)){
+
+        for(int i = 0; i < users.size() && !isFound; i++){
+
+            if(users.get(i).getNickname().equalsIgnoreCase(user)){
+
+                Consumer foundedConsumer = (Consumer) users.get(i);
+                isFound = true;
+
+                if(users.get(i) instanceof Producer){
+
+                    msgConfirmation = "\nLo sentimos, solo usuarios consumidores pueden tener playlist.";
+
+                }else{
+                    String isCorrect = foundedConsumer.addPlaylist(name);
+
+                    if(isCorrect.equalsIgnoreCase("")){
+
+                        msgConfirmation = "\nLo sentimos ya se ha registrado una playlist con ese nombre.";
+
+                    }else if(isCorrect.equalsIgnoreCase("")){
+
+                        msgConfirmation = "\nLo sentimos, ha alcanzado el limite de playlists.";
+
                     }else{
-                        if(users.get(i) instanceof UStandard){
-                            UStandard consumer = (UStandard) users.get(i);
-                            String operationResult = consumer.addPlaylistToArrayList(playlistName);
-                            if(operationResult.equalsIgnoreCase("Proceed.")){
-                                msgConfirmation = "Error. This user has a playlist with the same name.";
-                            }else if (operationResult.equalsIgnoreCase("\nLo sentimos, has alcanzado el limite de playlist de cuentas estandar, actualizate a premium.")){
-                                msgConfirmation = "Error. Limit reached for this user.";
-                            } else {
-                                users.remove(i);
-                                users.add(consumer);
-                        }
+                        users.remove(i);
+                        users.add(foundedConsumer);
                     }
                 }
             }
-        }else{
-            msgConfirmation = "\nLo sentimos, el usuario que intenta crear la playlist no se encuentra en el sistema.";
+        }
+        if(!isFound){
+            msgError = null;
+            msgConfirmation = "\nLo sentimos, ese usuario no se encuentra en el sistema.";
         }
         return msgConfirmation;
     }
 
-    /** addPlaylistToStandardU: It is in charge of adding playlists for premium users.
-    * @param playlistName: String => This is the name by which the playlist will be identified.
-    * @param nickname: String => It is the nickname identifier of the standard user to whom the playlist will be created.
-    * @return msgConfirmation: String => This is the message that is returned when creating the playlist for the user.
-    */
-    public String addPlaylistToPremiumU(String name, String nickname){
-        LocalDate date = LocalDate.now();
-        String msgConfirmation = "\nPlaylist creada correctamente.";
-        boolean isFound = false;
-        if(searchUser(nickname)!= null){
-            for(int i = 0; i < users.size() && !isFound; i++){
-                if(users.get(i).getNickname().equalsIgnoreCase(nickname)){
+    public String sharePlaylist(String name, String playlist){
+        String msgConfirmation = null;
+
+        if(searchUser(name) != null){
+
+            if(searchUser(name) instanceof Consumer){
+                Consumer consumer = (Consumer) searchUser(name);
+
+                if(consumer instanceof UStandard){
+                    UStandard user = (UStandard) consumer;
+                    if(user.searchPlaylist(playlist) != null){
+
+                        msgConfirmation = user.searchPlaylist(playlist).sharePlaylist();
+
                     }else{
-                        if(users.get(i) instanceof UPremium){
-                        UPremium consumer = (UPremium) users.get(i);
-                        if(consumer.addPlaylistToArrayList(name).equalsIgnoreCase("Proceed.")){
-                        msgConfirmation = "\nLo sentimos, este usuario tiene ya otra playlist con ese nombre.";
-                        }else{
-                            users.remove(i);
-                            users.add(consumer);
-                        }
+
+                        msgConfirmation = "\nLo sentimos, no se ha encontrado la playlist.";
+                    }
+                }else{
+                    UPremium user = (UPremium) consumer;
+
+                    if(user.searchPlaylist(playlist) != null) {
+
+                        msgConfirmation = user.searchPlaylist(playlist).sharePlaylist();
+
+                    }else{
+
+                        msgConfirmation = "\nLo sentimos no se ha encontrado la playlist.";
                     }
                 }
+            }else{
+                msgConfirmation = "\nLo sentimos, solo usuarios consumidores pueden compartir sus playlist.";
             }
         }else{
-            msgConfirmation = "\nLo sentimos, el productor que intenta crear la playlist no se encuentra en el sistema.";
+            msgConfirmation = "\nLo sentimos, este usuario no se encuentra en el sistema.";
         }
         return msgConfirmation;
     }
+
+
+
 
 }   
